@@ -66,7 +66,7 @@ public class BusinessSecurityFilter extends AbstractSecurityInterceptor implemen
 
             response.setContentType("application/json;charset=UTF-8");
             ((HttpServletResponse) response).setStatus(HttpStatus.UNAUTHORIZED.value());
-            this.objectMapper.writeValue(response.getWriter(), ResponseBuilder.custom().failed("internal server error", HttpStatus.INTERNAL_SERVER_ERROR.value()).build());
+            this.objectMapper.writeValue(response.getWriter(), ResponseBuilder.custom().failed("服务异常", HttpStatus.INTERNAL_SERVER_ERROR.value()).build());
         } finally {
             super.afterInvocation(token, (Object) null);
         }
@@ -75,7 +75,7 @@ public class BusinessSecurityFilter extends AbstractSecurityInterceptor implemen
 
     public void destroy() {
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug("destroy MySecurityFilter...");
+            this.logger.debug("销毁资源信息");
         }
 
     }
@@ -86,7 +86,7 @@ public class BusinessSecurityFilter extends AbstractSecurityInterceptor implemen
 
     public SecurityMetadataSource obtainSecurityMetadataSource() {
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug("get mySecurityMetadataSource..");
+            this.logger.debug("获取操作资源");
         }
 
         return this.mySecurityMetadataSource;
@@ -94,7 +94,7 @@ public class BusinessSecurityFilter extends AbstractSecurityInterceptor implemen
 
     public void init(FilterConfig filterconfig) throws ServletException {
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug("init MySecurityFilter..");
+            this.logger.debug("初始化资源信息");
         }
 
     }

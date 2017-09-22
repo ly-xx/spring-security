@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
+ * 主要用来判断登录用户对应的角色是否有访问资源路径的权限
  * @author lxx
  */
 

@@ -20,49 +20,19 @@ import java.util.stream.Collectors;
  * @author lxx
  */
 
-public class TokenAuthenticationService {
-
-    static final long EXPIRATIONTIME = 432_000_000;     // 5天
-    static final String SECRET = "P@ssw02d";            // JWT密码
-    static final String TOKEN_PREFIX = "Bearer";        // Token前缀
-    static final String HEADER_STRING = "Authorization";// 存放Token的Header Key
-
-    static void addAuthentication(HttpServletResponse response, Authentication auth) {
-        // 生成JWT
-        String JWT = Jwts.builder()
-                // 保存权限（角色）
-                .claim("authorities", auth.getAuthorities())
-                // 用户名写入标题
-                .setSubject(auth.getName())
-                // 有效期设置
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
-                // 签名设置
-                .signWith(SignatureAlgorithm.HS512, SECRET)
-                .compact();
-
-        Map<String, Object> tokenMap = new HashMap();
-        tokenMap.put("token", JWT);
-        // 将 JWT 写入 body
-        try {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_OK);
-            new ObjectMapper().writeValue(response.getWriter(), ResponseBuilder.custom().data(tokenMap).build());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+public class JwtTokenParserFactory {
 
     static Authentication getAuthentication(HttpServletRequest request) {
         // 从Header中拿到token
-        String token = request.getHeader(HEADER_STRING);
+        String token = request.getHeader(JwtSetting.HEADER_STRING);
 
         if (token != null) {
             // 解析 Token
             Claims claims = Jwts.parser()
                     // 验签
-                    .setSigningKey(SECRET)
+                    .setSigningKey(JwtSetting.SECRET)
                     // 去掉 Bearer
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                    .parseClaimsJws(token.replace(JwtSetting.TOKEN_PREFIX, ""))
                     .getBody();
 
             // 拿用户名
