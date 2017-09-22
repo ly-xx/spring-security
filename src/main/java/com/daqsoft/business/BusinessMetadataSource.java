@@ -62,7 +62,7 @@ public class BusinessMetadataSource implements FilterInvocationSecurityMetadataS
             return resourceMap.get(url);
         } else {
             System.out.println("验证失败");
-            throw new AccessDeniedException(String.format("url: '%s' not supported to access", new Object[]{url}));
+            throw new AccessDeniedException(String.format("url: '%s' 不允许访问", new Object[]{url}));
         }
     }
 

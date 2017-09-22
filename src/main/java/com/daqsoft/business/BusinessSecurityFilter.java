@@ -68,7 +68,7 @@ public class BusinessSecurityFilter extends AbstractSecurityInterceptor implemen
             ((HttpServletResponse) response).setStatus(HttpStatus.UNAUTHORIZED.value());
             this.objectMapper.writeValue(response.getWriter(), ResponseBuilder.custom().failed("服务异常", HttpStatus.INTERNAL_SERVER_ERROR.value()).build());
         } finally {
-            super.afterInvocation(token, (Object) null);
+            super.afterInvocation(token, null);
         }
 
     }

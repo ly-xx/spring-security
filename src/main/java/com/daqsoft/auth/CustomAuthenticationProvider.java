@@ -3,6 +3,7 @@ package com.daqsoft.auth;
 import com.daqsoft.entity.SysRole;
 import com.daqsoft.entity.SysUser;
 import com.daqsoft.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,11 +25,8 @@ import java.util.List;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
+    @Autowired
     private UserService userService;
-
-    public CustomAuthenticationProvider(UserService userService) {
-        this.userService = userService;
-    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

@@ -47,11 +47,11 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
                     logger.debug("帐号或密码为空");
                 }
 
-                throw new AuthenticationServiceException("Username or Password not provided");
+                throw new AuthenticationServiceException("账号或密码为空！");
             }
         } else {
             if(logger.isDebugEnabled()) {
-                logger.debug("请求方法不支持. Request method: " + requestMethod);
+                logger.debug("请求方法不支持. 请求方法: " + requestMethod);
             }
             throw new AuthenticationServiceException("有错误了");
         }
@@ -70,6 +70,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        new ObjectMapper().writeValue(response.getWriter(), ResponseBuilder.custom().failed("Internal Server Error!!!").build());
+        new ObjectMapper().writeValue(response.getWriter(), ResponseBuilder.custom().failed("权限认证失败").build());
     }
 }
