@@ -1,4 +1,4 @@
-package com.daqsoft.auth;
+package com.daqsoft.utils;
 
 import org.springframework.security.web.savedrequest.SavedRequest;
 

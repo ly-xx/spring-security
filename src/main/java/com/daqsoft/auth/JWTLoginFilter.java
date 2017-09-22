@@ -1,6 +1,8 @@
 package com.daqsoft.auth;
 
 import com.daqsoft.commons.responseEntity.ResponseBuilder;
+import com.daqsoft.utils.RequestUtils;
+import com.daqsoft.utils.WebUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpMethod;
@@ -36,7 +38,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
         String requestMethod = request.getMethod();
         if(HttpMethod.POST.name().equals(requestMethod) && WebUtil.isAjax(request)) {
-            JwtUserDetail loginRequest = (JwtUserDetail)RequestUtils.getLoginRequest(request, JwtUserDetail.class);
+            JwtUserDetail loginRequest = (JwtUserDetail) RequestUtils.getLoginRequest(request, JwtUserDetail.class);
             if(loginRequest != null && !StringUtils.isBlank(loginRequest.getUsername()) && !StringUtils.isBlank(loginRequest.getPassword())) {
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
                 return this.getAuthenticationManager().authenticate(token);

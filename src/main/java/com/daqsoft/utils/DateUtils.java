@@ -1,4 +1,4 @@
-package com.daqsoft.auth;
+package com.daqsoft.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
