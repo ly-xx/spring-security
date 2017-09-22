@@ -36,13 +36,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 // 对请求进行认证
                 .authorizeRequests()
-                // 所有 / 的所有请求 都放行
-                .antMatchers("/").permitAll()
-                // 所有 /login 的POST请求 都放行
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-//                // 添加权限检测
-                .antMatchers("/hello").hasAnyAuthority("manager")
-                .antMatchers("/world").hasAnyAuthority("admin")
+                /**
+                 * 固定权限的控制可用下面的代码，先已改为根据数据库查询
+                 * // 所有 / 的所有请求 都放行
+                 .antMatchers("/").permitAll()
+                 // 所有 /login 的POST请求 都放行
+                 .antMatchers(HttpMethod.POST, "/login").permitAll()
+                 // 添加权限检测
+                 .antMatchers("/hello").hasAnyAuthority("manager")
+                 .antMatchers("/world").hasAnyAuthority("admin")
+                 */
+
                 // 所有请求需要身份认证
                 .anyRequest().authenticated()
                 .and()

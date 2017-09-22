@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,5 +46,11 @@ public class UserController {
         Map<String, Object> resultMap = new HashMap();
         resultMap.put("world", "china");
         return ResponseBuilder.custom().success().data(resultMap).build();
+    }
+
+    @RequestMapping(value = "/findAll")
+    public BaseResponse findAll() {
+        List<SysUser> users = userService.findAll();
+        return ResponseBuilder.custom().success().data(users).build();
     }
 }
