@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // 使用自定义验证组件
+        // 自定义验证机制处理认证请求（可以有多个）
         auth.authenticationProvider(this.authenticationProvider);
     }
 
